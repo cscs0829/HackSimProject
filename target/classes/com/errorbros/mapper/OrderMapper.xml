@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.errorbros.mapper.OrderMapper">
+
+<!-- 주문 내역 저장 -->
+	<insert id="insertOrder" parameterType="com.errorbros.entity.Order" >
+		 INSERT INTO tb_order (
+        order_id, mem_id, rest_idx, order_date, order_amount, 
+        order_status, pay_method, order_menu
+    ) VALUES (
+        #{order_id}, #{mem_id}, #{rest_idx}, NOW(), 
+        #{order_amount}, #{order_status}, #{pay_method}, #{order_menu}
+    );
+	</insert>
+	
+	 <select id="generateNewOrderId" >
+        <![CDATA[
+            SET @today := DATE_FORMAT(NOW(), '%Y%m%d%H%i%s');
+            SET @lastIndex := (
+                SELECT IFNULL(MAX(CAST(SUBSTRING(order_id, 15, 5) AS UNSIGNED)), 0)
+                FROM tb_order
+                WHERE SUBSTRING(order_id, 1, 14) = @today
+            );
+            SET @newIndex := @lastIndex + 1;
+            SELECT CONCAT(@today, LPAD(@newIndex, 5, '0')) AS orderId;
+        ]]>
+    </select>
+    
+    <select id="UserOrderList" >
+    	select * from tb_order where memder_id = #{member_id} 
+    </select>
+    <select id="searchPayListByMem_id" resultType="com.errorbros.entity.Order">
+    	select * from tb_order where mem_id = #{mem_id} 
+    </select>
+    <select id="orderSuccessByOrder_id" resultType="com.errorbros.entity.Order">
+    	select * from tb_order where order_id = #{order_id} 
+    </select>
+    
+    
+	
+</mapper>
