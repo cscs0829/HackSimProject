@@ -9,7 +9,7 @@
 <body>
 	<div id="map" style="width:750px;height:350px;"></div>
 
-	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=766824df2f4642d0c1ee9b9d357b44a4"></script>
+	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=api키"></script>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
