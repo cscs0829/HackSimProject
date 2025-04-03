@@ -306,7 +306,7 @@
 
 	    IMP.request_pay(
 	        {
-	            channelKey: "channel-key-b9f4d268-bf41-4bdd-ba4d-1c5d1a65284f",
+	            channelKey: "채널키",
 	            merchant_uid: storedUuid, // 주문 고유 번호
 	            pay_method: "card",
 	            name: menuNames, // 선택한 메뉴 이름들
